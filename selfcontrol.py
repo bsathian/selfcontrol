@@ -62,9 +62,9 @@ def main():
         mm = int(mm)
     blockedListFilePath = "blocked.txt"
     hostsFilePath = "/etc/hosts"
-    os.system("cp "+hostsFilePath+" hosts_backup")
-    os.system("cp hosts_backup hosts_new")
     if not linesAlreadyPresent(hostsFilePath):
+        os.system("cp "+hostsFilePath+" hosts_backup")
+        os.system("cp hosts_backup hosts_new")
         addLinesToFile(blockedListFilePath,"hosts_new")
         os.system("cp hosts_new "+hostsFilePath)
         os.system("rm hosts_new")
