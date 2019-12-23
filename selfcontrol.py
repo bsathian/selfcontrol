@@ -47,12 +47,13 @@ def waitForCompletion(hh,mm):
 def endSelfControl(hostsFilePath):
     '''Ends self control by copying the backup to the original location'''
 
-    os.system("sudo cp hosts_backup "+hostsFilePath)
+    os.system("gksu cp hosts_backup "+hostsFilePath)
 
 def main():
-    if os.geteuid() != 0:
-        subprocess.run(["sudo","python",*sys.argv])
-        return
+#    if os.geteuid() != 0:
+#        print("Running as root")
+#        subprocess.run(["gksu","python",*sys.argv])
+#        return
     if len(sys.argv) < 2:
         hh = 9
         mm = 0
@@ -66,7 +67,7 @@ def main():
         os.system("cp "+hostsFilePath+" hosts_backup")
         os.system("cp hosts_backup hosts_new")
         addLinesToFile(blockedListFilePath,"hosts_new")
-        os.system("cp hosts_new "+hostsFilePath)
+        os.system("gksu cp hosts_new "+hostsFilePath)
         os.system("rm hosts_new")
     waitForCompletion(hh,mm)
     endSelfControl(hostsFilePath)
