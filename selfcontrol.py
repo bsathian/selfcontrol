@@ -47,7 +47,7 @@ def waitForCompletion(hh,mm):
 def endSelfControl(hostsFilePath):
     '''Ends self control by copying the backup to the original location'''
 
-    os.system("gksu cp hosts_backup "+hostsFilePath)
+    os.system("sudo cp hosts_backup "+hostsFilePath)
 
 def main():
 #    if os.geteuid() != 0:
@@ -67,7 +67,7 @@ def main():
         os.system("cp "+hostsFilePath+" hosts_backup")
         os.system("cp hosts_backup hosts_new")
         addLinesToFile(blockedListFilePath,"hosts_new")
-        os.system("gksu cp hosts_new "+hostsFilePath)
+        os.system("sudo cp hosts_new "+hostsFilePath)
         os.system("rm hosts_new")
     waitForCompletion(hh,mm)
     endSelfControl(hostsFilePath)
